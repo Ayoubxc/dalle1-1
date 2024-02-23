@@ -7,7 +7,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-const replicate = new Replicate({   auth: "r8_ODtCAZO5iWvyHj4bc59NpzSKyOB0KyK2OXpxL",
+const replicate = new Replicate({   auth: "r8_6yGN7OMnvt84GFFL03hsS0QIZPT76wX3IpKef",
 });
 
 app.use(express.json());
@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
 ░░░░░▄▀▄░▄░▄░░░█░░░▄░▄░▄▀▄
 ░░░░░█▄▄▄▄▄▄▄▄▄▀▄▄▄▄▄▄▄▄▄█
 
-😼 𝐃𝐚𝐥𝐥𝐞 𝐀𝐏𝐈 𝐛𝐲 𝐇𝐚𝐳𝐞𝐲𝐲`).end()
+🥷🏻 ⓜⓘⓓⓙⓞⓤⓡⓝⓔⓨ 𝐀𝐏𝐈 𝐛𝐲 ǺᎩᎧᏬᏰ`).end()
 });
 
 app.get("/openjourney/v4", async (req, res) => {
