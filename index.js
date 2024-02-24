@@ -7,7 +7,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-const replicate = new Replicate({   auth: "🥷🏻",
+const replicate = new Replicate({   auth: "r8_6yGN7OMnvt84GFFL03hsS0QIZPT76wX3IpKef",
 });
 
 app.use(express.json());
