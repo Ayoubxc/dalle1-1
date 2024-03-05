@@ -1,41 +1,37 @@
 const express = require('express');
-const Replicate = require('replicate');
+const replicate = require('replicate');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // يمكنك تغيير رقم المنفذ حسب الحاجة
 
-const replicate = new Replicate({   auth: "r8_6yGN7OMnvt84GFFL03hsS0QIZPT76wX3IpKef",
+// استيراد وتكوين العميل
+const replicateClient = new replicate({
+  auth: "r8_6yGN7OMnvt84GFFL03hsS0QIZPT76wX3IpKef",
 });
 
-app.use(express.json());
-
-app.get('/dalle/lora', async (req, res) => {
+// تحديد مسار الطلب لتشغيل النموذج
+app.get('/run-face-swap-detect', async (req, res) => {
   try {
-    const { prompt } = req.query;
-
-    if (!prompt) {
-      return res.status(400).json({ error: 'Prompt is required' });
-    }
-
-    console.log(`Received prompt: ${prompt}`);
-
-    const output = await replicate.run(
-      'batouresearch/open-dalle-1.1-lora:2ade2cbfc88298b98366a6e361559e11666c17ed415d341c9ae776b30a61b196',
-      { input: { prompt } }
+    const output = await replicateClient.run(
+      "peter65374/face-swap-detect:5db71f3a5e1e125471fe70a9a08e4624a84522ed285d9229cc902f3aeb3a8603",
+      {
+        input: {
+          model_faces: "https://replicate.delivery/pbxt/Jofw0BnnqfaewOsXQ59xlpBISEI2QFZXFa2VoeKIziJK3sLa/modelfaces.zip",
+          target_image: "https://replicate.delivery/pbxt/Jofvzz4ZyhEQ3E4VMb8zm7JqxFanZtjIDfMAC0A8nOyYS4vj/multifaces.jpg",
+          inference_mode: "swap"
+        }
+      }
     );
-
-    console.log(`Response for prompt "${prompt}":`, output);
-
-    return res.json({ result: output });
+    res.json({ url: output, message: 'Generated successfully' });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+// تشغيل الخادم
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
