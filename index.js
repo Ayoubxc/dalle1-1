@@ -1,37 +1,33 @@
 const express = require('express');
-const replicate = require('replicate');
+const Replicate = require('replicate');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000; // يمكنك تغيير رقم المنفذ حسب الحاجة
-
-// استيراد وتكوين العميل
 const replicate = new Replicate({
-  auth: "r8_6yGN7OMnvt84GFFL03hsS0QIZPT76wX3IpKef",
+  auth: "r8_Zpkz9MjfUmarRqlZh9nL7yIOUvCl6iu2fKru0",
 });
 
-// تحديد مسار الطلب لتشغيل النموذج
-app.get('/run-face-swap-detect', async (req, res) => {
+const PORT = process.env.PORT || 3000;
+
+app.get('/face-swap', async (req, res) => {
   try {
-    const output = await replicateClient.run(
-      "peter65374/face-swap-detect:5db71f3a5e1e125471fe70a9a08e4624a84522ed285d9229cc902f3aeb3a8603",
+    const output = await replicate.run(
+      "omniedgeio/face-swap:c2d783366e8d32e6e82c40682fab6b4c23b9c6eff2692c0cf7585fc16c238cfe",
       {
         input: {
-          model_faces: "https://replicate.delivery/pbxt/Jofw0BnnqfaewOsXQ59xlpBISEI2QFZXFa2VoeKIziJK3sLa/modelfaces.zip",
-          target_image: "https://replicate.delivery/pbxt/Jofvzz4ZyhEQ3E4VMb8zm7JqxFanZtjIDfMAC0A8nOyYS4vj/multifaces.jpg",
-          inference_mode: "swap"
+          swap_image: req.query.swap_image,
+          target_image: req.query.target_image
         }
       }
     );
-    res.json({ url: output, message: 'Generated successfully' });
+    res.json(output);
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: error.message });
   }
 });
 
-// تشغيل الخادم
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Express server is running on port ${PORT}`);
 });
