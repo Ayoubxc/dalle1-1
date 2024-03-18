@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3000; // يمكنك تغيير رقم المنفذ حسب الحاجة
 
 // استيراد وتكوين العميل
-const replicateClient = new replicate({
+const replicate = new Replicate({
   auth: "r8_6yGN7OMnvt84GFFL03hsS0QIZPT76wX3IpKef",
 });
 
