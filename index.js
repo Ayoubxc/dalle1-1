@@ -11,14 +11,14 @@ const replicate = new Replicate({
 
 const PORT = process.env.PORT || 3000;
 
-app.get('/face-swap', async (req, res) => {
+app.get('/to', async (req, res) => {
   try {
     const output = await replicate.run(
       "omniedgeio/face-swap:c2d783366e8d32e6e82c40682fab6b4c23b9c6eff2692c0cf7585fc16c238cfe",
       {
         input: {
-          swap_image: req.query.swap_image,
-          target_image: req.query.target_image
+          swap_image: req.query.fac1,
+          target_image: req.query.fac2
         }
       }
     );
