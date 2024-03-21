@@ -6,7 +6,7 @@ dotenv.config();
 
 const app = express();
 const replicate = new Replicate({
-  auth: "r8_Zpkz9MjfUmarRqlZh9nL7yIOUvCl6iu2fKru0",
+  auth: "r8_MFTLjKSJhoVj6ovmhYslX8NZZGF5zsH2wYJAr",
 });
 
 const PORT = process.env.PORT || 3000;
